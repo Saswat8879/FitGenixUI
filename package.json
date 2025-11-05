@@ -1,0 +1,7 @@
+{
+  "name": "flask-vercel-build",
+  "private": true,
+  "scripts": {
+    "vercel-build": "python -m pip install -r requirements.txt && python -m flask --app run db upgrade"
+  }
+}
