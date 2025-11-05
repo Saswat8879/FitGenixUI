@@ -1,0 +1,39 @@
+{# app/templates/leaderboard.html #}
+{% extends "layout.html" %}
+{% block title %}Leaderboard{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Leaderboard — Top {{ leaderboard|length }} Users</h1>
+      <p class="card-description">Showing points from {{ date_from.strftime("%Y-%m-%d") }} to {{ date_to.strftime("%Y-%m-%d") }}</p>
+    </div>
+    <div class="card-content">
+      {% if leaderboard %}
+        <div class="table-wrapper">
+          <table class="table">
+            <thead class="table-header">
+              <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in leaderboard %}
+              <tr class="table-row">
+                <td class="table-cell" style="width: 80px;">{{ loop.index }}</td>
+                <td class="table-cell">{{ row.display_name }}</td>
+                <td class="table-cell" style="width: 150px;">{{ row.total_points }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-muted text-center">No data yet for the selected period.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

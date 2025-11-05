@@ -1,0 +1,407 @@
+/* app/static/css/site.css */
+/* Inspired by the 'flask-to-ts-flow' repo (shadcn/ui aesthetic) */
+:root {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+}
+
+/* Helper function for HSL colors */
+#_ {
+  color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  color: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  color: hsl(var(--muted));
+  color: hsl(var(--muted-foreground));
+  color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+  color: hsl(var(--border));
+  color: hsl(var(--input));
+  color: hsl(var(--ring));
+}
+
+* {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: hsl(var(--border));
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- New Sidebar Layout --- */
+.page-wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  border-right: 1px solid hsl(var(--border));
+  background-color: hsl(var(--background));
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.sidebar-header {
+  padding: 1rem;
+  text-align: left;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+}
+
+.main-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  color: hsl(var(--muted-foreground));
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 150ms ease;
+}
+.nav-link:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--foreground));
+}
+.nav-link.active {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 1rem;
+}
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 2rem;
+  height: 65px;
+  border-bottom: 1px solid hsl(var(--border));
+  position: sticky;
+  top: 0;
+  background-color: hsl(var(--background));
+  z-index: 10;
+}
+
+.user-menu a, .user-menu .btn {
+  margin-left: 0.75rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* --- Component: Button --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 150ms ease;
+  line-height: 1.25;
+}
+.btn:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+.btn-primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+.btn-primary:hover {
+  background-color: hsl(var(--primary) / 0.9);
+}
+.btn-secondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+.btn-secondary:hover {
+  background-color: hsl(var(--secondary) / 0.9);
+}
+.btn-ghost {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+}
+.btn-ghost:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+.btn-destructive {
+  background-color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+}
+.btn-destructive:hover {
+  background-color: hsl(var(--destructive) / 0.9);
+}
+.btn-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+}
+.btn-full {
+  width: 100%;
+}
+
+/* --- Component: Card --- */
+.card {
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+}
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: hsl(var(--foreground));
+}
+.card-description {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  margin: 0.25rem 0 0 0;
+}
+.card-content {
+  padding: 1.5rem;
+}
+.card-footer {
+  padding: 1.5rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+/* --- Component: Form Elements --- */
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: hsl(var(--foreground));
+}
+.form-control {
+  display: flex;
+  width: 100%;
+  height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--input));
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  transition: all 150ms ease;
+}
+.form-control:focus {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-color: transparent;
+}
+/* Style select dropdowns */
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* --- Component: Table --- */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.table-header {
+  border-bottom: 1px solid hsl(var(--border));
+}
+.table-header th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+}
+.table-row {
+  border-bottom: 1px solid hsl(var(--border));
+  transition: background-color 150ms ease;
+}
+.table-row:last-child {
+  border-bottom: 0;
+}
+.table-row:hover {
+  background-color: hsl(var(--accent));
+}
+.table-cell {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+/* --- Utilities --- */
+.grid {
+  display: grid;
+}
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.gap-4 {
+  gap: 1rem;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+.mt-4 {
+  margin-top: 1rem;
+}
+.mt-6 {
+  margin-top: 1.5rem;
+}
+.text-center {
+  text-align: center;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
+.text-muted {
+  color: hsl(var(--muted-foreground));
+}
+.w-full {
+  width: 100%;
+}
+.max-w-md {
+  max-width: 28rem; /* 448px */
+}
+.max-w-2xl {
+  max-width: 42rem; /* 672px */
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Flashes --- */
+.flashes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 75px;
+  right: 2rem;
+  z-index: 50;
+  width: 350px;
+}
+.flash {
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  font-weight: 500;
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--card));
+  color: hsl(var(--foreground));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.flash.success {
+  border-color: #166534;
+  background-color: #051a0c;
+  color: #a3e6bd;
+}
+.flash.danger {
+  border-color: hsl(var(--destructive));
+  background-color: #2a0a0a;
+  color: #fca5a5;
+}
+
+/* --- Auth Page Specific --- */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}

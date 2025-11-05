@@ -1,0 +1,34 @@
+{# app/templates/auth/login.html #}
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block auth_layout %}
+  <div class="auth-wrapper">
+    <div class="card max-w-md w-full">
+      <form method="post" action="{{ url_for('auth.login') }}">
+        <div class="card-header">
+          <h1 class="card-title">Welcome back</h1>
+          <p class="card-description">Enter your email below to login to your account.</p>
+        </div>
+        <div class="card-content">
+          <input type="hidden" name="next" value="{{ next_url or '' }}">
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" id="email" name="email" type="email" placeholder="m@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-control" id="password" name="password" type="password" required>
+          </div>
+          <button class="btn btn-primary w-full mt-4" type="submit">Log In</button>
+        </div>
+      </form>
+      <div class="card-footer">
+        <p class="text-center text-sm text-muted">
+          Don't have an account? <a href="{{ url_for('auth.register') }}" class="btn btn-ghost btn-sm">Sign Up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

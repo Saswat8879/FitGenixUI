@@ -1,0 +1,80 @@
+{# app/templates/activities.html #}
+{% extends "layout.html" %}
+{% block title %}Activities{% endblock %}
+{% block content %}
+<div class="container">
+  <h1 class="card-title mb-6">Activities — {{ today.strftime('%Y-%m-%d') }}</h1>
+  
+  <div class="card mb-4">
+    <div class="card-content text-center">
+      <div class="text-sm text-muted mb-2">Today's lifestyle points</div>
+      <div class="text-3xl font-bold">{{ today_points or 0 }}</div>
+    </div>
+  </div>
+
+  <div class="card mb-6">
+    <div class="card-header">
+      <h2 class="card-title">Log manual activity</h2>
+      <p class="card-description">Log an activity, heart rate, and/or sleep to compute lifestyle points.</p>
+    </div>
+    <div class="card-content">
+      <form action="{{ url_for('activities.add_activity') }}" method="post" class="grid grid-cols-4 gap-4">
+        <input class="form-control" name="activity_type" placeholder="Activity (e.g. Running)">
+        <input class="form-control" name="duration_minutes" type="number" step="0.1" placeholder="Duration (min)">
+        <input class="form-control" name="calories_burned" type="number" step="0.1" placeholder="Calories">
+        <input class="form-control" name="avg_bpm" type="number" step="1" placeholder="Avg BPM">
+        <input class="form-control" name="sleep_hours" type="number" step="0.1" placeholder="Sleep (hrs)" style="grid-column: span 3;">
+        <button class="btn btn-primary" type="submit">Add</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2 class="card-title">Today's manual activities</h2>
+    </div>
+    <div class="card-content">
+      {% if activities %}
+        <div class="table-wrapper">
+          <table class="table">
+            <thead class="table-header">
+              <tr>
+                <th>Time</th>
+                <th>Activity</th>
+                <th>Duration (min)</th>
+                <th>Calories</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in activities %}
+              <tr class="table-row">
+                <td class="table-cell">{{ a.time.strftime("%H:%M") if a.time else "-" }}</td>
+                <td class="table-cell">{{ a.activity_type }}</td>
+                <td class="table-cell">{{ a.duration_minutes if a.duration_minutes is not none else "-" }}</td>
+                <td class="table-cell">{{ a.calories_burned if a.calories_burned is not none else "-" }}</td>
+                <td class="table-cell">{{ a.notes or "-" }}</td>
+                <td class="table-cell">
+                  <form action="{{ url_for('activities.delete_activity', activity_id=a.id) }}" method="post" style="display:inline">
+                    <button class="btn btn-destructive btn-sm" type="submit" onclick="return confirm('Delete activity?')">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-4 text-sm text-muted">
+          <strong>Manual calories burned today:</strong> {{ manual_burn|default(0) }}
+          {% if fit_burn %}
+            <br><span>Google Fit calories (if any): {{ fit_burn }}</span>
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="text-muted text-center">No manual activities logged today.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

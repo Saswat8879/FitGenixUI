@@ -1,0 +1,68 @@
+{# app/templates/layout.html - CORRECTED #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %} - FitGenix</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+
+  {% block auth_layout %}
+    {# This block is used for login/register pages which don't have the sidebar #}
+    <div class="page-wrapper">
+      
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="{{ url_for('meals.index') }}" class="brand">FitGenix</a>
+        </div>
+        <nav class="main-nav">
+          <a href="{{ url_for('meals.index') }}" class="nav-link {% if request.endpoint.startswith('meals') %}active{% endif %}">Meals</a>
+          <a href="{{ url_for('activities.index') }}" class="nav-link {% if request.endpoint.startswith('activities') %}active{% endif %}">Activities</a>
+          <a href="{{ url_for('leaderboard.view_leaderboard') }}" class="nav-link {% if request.endpoint.startswith('leaderboard') %}active{% endif %}">Leaderboard</a>
+          <a href="{{ url_for('profile.profile') }}" class="nav-link {% if request.endpoint.startswith('profile') %}active{% endif %}">Profile</a>
+        </nav>
+        <div class="sidebar-footer">
+          {% if g.fit_integrated %}
+            <span class="btn btn-secondary btn-sm w-full" style="opacity: 0.7;">Google Fit: Connected</span>
+          {% else %}
+            <a href="{{ url_for('google_fit.connect') }}" class="btn btn-secondary btn-sm w-full">Connect Google Fit</a>
+          {% endif %}
+        </div>
+      </aside>
+
+      <div class="main-content">
+        
+        <header class="page-header">
+          <div class="user-menu">
+            {% if g.user %}
+              <a href="{{ url_for('profile.profile') }}" class="btn btn-ghost">{{ g.user.display_name() }}</a>
+              <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary btn-sm">Sign Out</a>
+            {% else %}
+              <a href="{{ url_for('auth.login') }}" class="btn btn-ghost">Login</a>
+              <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Sign Up</a>
+            {% endif %}
+          </div>
+        </header>
+
+        <main>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <ul class="flashes">
+                {% for category, message in messages %}
+                  <li class="flash {{ category }}">{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+  {% endblock %}
+
+</body>
+</html>
